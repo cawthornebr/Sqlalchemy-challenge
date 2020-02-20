@@ -97,7 +97,7 @@ def start_date(start):
                     f"Maximum : {max(start_date_query)}")
         else:
             session.close()
-            return jsonify({"1error": f"This date, {start}, is not in the correct format. Please enter a valid date in the correct format: Year-Month-Day."}), 404
+            return jsonify({"1error": f"This date, {start}, is not in the correct format or is outside the scope of this database. Please enter a valid date in the correct format: Year-Month-Day."}), 404
     except:
         session.close()
         return jsonify({"2error": f"This date, {start}, is not in the correct format. Please enter a valid date in the correct format: Year-Month-Day."}), 404
@@ -105,6 +105,7 @@ def start_date(start):
 @app.route("/api/v1.0/<start>/<end>")
 def start_and_end_date(start,end):
     print("---Start and end date selected.---")
+    
     ###### DATE FORMAT TEST
 
     #test to make sure the start date is in the correct date format
@@ -145,7 +146,7 @@ def start_and_end_date(start,end):
                         f"Maximum : {max(start_date_query)}")
             else:
                 session.close()
-                return jsonify({"error": f"This date, {start1}, is not in the correct format. Please enter a valid date in the correct format: Year-Month-Day."}), 404
+                return jsonify({"error": f"One of the dates enterd is outside the scope of this database."}), 404
         else:
             session.close()
             return jsonify({"error": f"End date is less than the start date. Please enter an end date greater than the start date"}), 404
